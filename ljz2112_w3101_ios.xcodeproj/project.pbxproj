@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB754ABD19FA34E000419FCF /* AllNotesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB754ABC19FA34E000419FCF /* AllNotesViewController.m */; };
+		AB754AC319FA514500419FCF /* NoteUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = AB754AC219FA514500419FCF /* NoteUtilities.m */; };
+		AB7A7F1219FA2ABC00CCA407 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7A7F1119FA2ABC00CCA407 /* Note.m */; };
 		AB853FA619E462110015E76A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AB853FA519E462110015E76A /* main.m */; };
 		AB853FA919E462110015E76A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB853FA819E462110015E76A /* AppDelegate.m */; };
-		AB853FAC19E462110015E76A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB853FAB19E462110015E76A /* ViewController.m */; };
+		AB853FAC19E462110015E76A /* NoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB853FAB19E462110015E76A /* NoteViewController.m */; };
 		AB853FAF19E462110015E76A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB853FAD19E462110015E76A /* Main.storyboard */; };
 		AB853FB119E462110015E76A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB853FB019E462110015E76A /* Images.xcassets */; };
 		AB853FB419E462110015E76A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB853FB219E462110015E76A /* LaunchScreen.xib */; };
@@ -27,13 +30,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB754ABB19FA34E000419FCF /* AllNotesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllNotesViewController.h; sourceTree = "<group>"; };
+		AB754ABC19FA34E000419FCF /* AllNotesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllNotesViewController.m; sourceTree = "<group>"; };
+		AB754AC119FA514500419FCF /* NoteUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteUtilities.h; sourceTree = "<group>"; };
+		AB754AC219FA514500419FCF /* NoteUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteUtilities.m; sourceTree = "<group>"; };
+		AB7A7F1019FA2ABC00CCA407 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
+		AB7A7F1119FA2ABC00CCA407 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 		AB853FA019E462110015E76A /* ljz2112_w3101_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ljz2112_w3101_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB853FA419E462110015E76A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB853FA519E462110015E76A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AB853FA719E462110015E76A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AB853FA819E462110015E76A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		AB853FAA19E462110015E76A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		AB853FAB19E462110015E76A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		AB853FAA19E462110015E76A /* NoteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoteViewController.h; sourceTree = "<group>"; };
+		AB853FAB19E462110015E76A /* NoteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteViewController.m; sourceTree = "<group>"; };
 		AB853FAE19E462110015E76A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AB853FB019E462110015E76A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AB853FB319E462110015E76A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -83,12 +92,18 @@
 			children = (
 				AB853FA719E462110015E76A /* AppDelegate.h */,
 				AB853FA819E462110015E76A /* AppDelegate.m */,
-				AB853FAA19E462110015E76A /* ViewController.h */,
-				AB853FAB19E462110015E76A /* ViewController.m */,
+				AB853FAA19E462110015E76A /* NoteViewController.h */,
+				AB853FAB19E462110015E76A /* NoteViewController.m */,
+				AB754AC119FA514500419FCF /* NoteUtilities.h */,
+				AB754AC219FA514500419FCF /* NoteUtilities.m */,
+				AB754ABB19FA34E000419FCF /* AllNotesViewController.h */,
+				AB754ABC19FA34E000419FCF /* AllNotesViewController.m */,
 				AB853FAD19E462110015E76A /* Main.storyboard */,
 				AB853FB019E462110015E76A /* Images.xcassets */,
 				AB853FB219E462110015E76A /* LaunchScreen.xib */,
 				AB853FA319E462110015E76A /* Supporting Files */,
+				AB7A7F1019FA2ABC00CCA407 /* Note.h */,
+				AB7A7F1119FA2ABC00CCA407 /* Note.m */,
 			);
 			path = ljz2112_w3101_ios;
 			sourceTree = "<group>";
@@ -219,9 +234,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB853FAC19E462110015E76A /* ViewController.m in Sources */,
+				AB853FAC19E462110015E76A /* NoteViewController.m in Sources */,
 				AB853FA919E462110015E76A /* AppDelegate.m in Sources */,
+				AB754AC319FA514500419FCF /* NoteUtilities.m in Sources */,
+				AB754ABD19FA34E000419FCF /* AllNotesViewController.m in Sources */,
 				AB853FA619E462110015E76A /* main.m in Sources */,
+				AB7A7F1219FA2ABC00CCA407 /* Note.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +430,7 @@
 				AB853FC519E462110015E76A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AB853FC619E462110015E76A /* Build configuration list for PBXNativeTarget "ljz2112_w3101_iosTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +439,7 @@
 				AB853FC819E462110015E76A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
