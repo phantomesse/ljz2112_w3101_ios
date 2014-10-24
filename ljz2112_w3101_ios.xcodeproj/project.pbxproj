@@ -18,6 +18,7 @@
 		AB853FB119E462110015E76A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB853FB019E462110015E76A /* Images.xcassets */; };
 		AB853FB419E462110015E76A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB853FB219E462110015E76A /* LaunchScreen.xib */; };
 		AB853FC019E462110015E76A /* ljz2112_w3101_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB853FBF19E462110015E76A /* ljz2112_w3101_iosTests.m */; };
+		ABF0988A19FAF36400AD1C8F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABF0988919FAF36400AD1C8F /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		AB853FB919E462110015E76A /* ljz2112_w3101_iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ljz2112_w3101_iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB853FBE19E462110015E76A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB853FBF19E462110015E76A /* ljz2112_w3101_iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ljz2112_w3101_iosTests.m; sourceTree = "<group>"; };
+		ABF0988919FAF36400AD1C8F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABF0988A19FAF36400AD1C8F /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +78,7 @@
 		AB853F9719E462110015E76A = {
 			isa = PBXGroup;
 			children = (
+				ABF0988919FAF36400AD1C8F /* MessageUI.framework */,
 				AB853FA219E462110015E76A /* ljz2112_w3101_ios */,
 				AB853FBC19E462110015E76A /* ljz2112_w3101_iosTests */,
 				AB853FA119E462110015E76A /* Products */,

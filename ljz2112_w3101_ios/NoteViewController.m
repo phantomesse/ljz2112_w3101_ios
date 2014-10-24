@@ -6,13 +6,14 @@
 //  Copyright (c) 2014 Lauren Zou. All rights reserved.
 //
 
+#import <MessageUI/MessageUI.h>
 #import "NoteViewController.h"
 #import "AllNotesViewController.h"
 #import "Note.h"
 #import "NotesIndex.h"
 #import "NoteUtilities.h"
 
-@interface NoteViewController () <UITextViewDelegate, AllNotesViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface NoteViewController () <UITextViewDelegate, AllNotesViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MFMailComposeViewControllerDelegate>
 
 #pragma mark - View Controller Fields
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
@@ -21,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (nonatomic) UIImagePickerController *imagePicker;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (nonatomic) MFMailComposeViewController *emailController;
 
 #pragma mark - Note Fields
 @property (strong, nonatomic) Note *note;
@@ -54,10 +56,16 @@
     // Retrieve the NotesIndex object
     _notesIndex = [NotesIndex retrieveNotesIndexFromFileSystem];
     
-    
     // Set up image picker
     _imagePicker = [[UIImagePickerController alloc] init];
     _imagePicker.delegate = self;
+    
+    // Set up the image view
+    _imageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    // Set up the email controller
+    _emailController = [[MFMailComposeViewController alloc] init];
+    _emailController.mailComposeDelegate = self;
     
     // For debugging
     //[NoteUtilities logFileSystem];
@@ -109,6 +117,10 @@
     [self presentViewController:_imagePicker animated:YES completion:nil];
 }
 
+- (IBAction)emailButtonClicked:(UIButton *)sender {
+    [self showEmail:@"Hi"];
+}
+
 - (IBAction)titleTextFieldEditingChanged:(UITextField *)sender {
     [_saveButton setEnabled:YES];
 }
@@ -121,6 +133,43 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     _notesPhoto = UIImagePNGRepresentation(image);
     _imageView.image = image;
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)showEmail:(NSString*)file {
+    // Set the title and body
+    [_emailController setSubject:_note.title];
+    [_emailController setMessageBody:_note.body isHTML:NO];
+        
+    // Add image if it exists
+    if (_notesPhoto != nil) {
+        // Add image
+        [_emailController addAttachmentData:_notesPhoto mimeType:@"image/png" fileName:@"Image.png"];
+    }
+        
+    // Present mail view controller on screen
+    [self presentViewController:_emailController animated:YES completion:NULL];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    switch (result) {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail sent");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+    
+    // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -207,6 +256,7 @@
     // Clear all the fields
     _titleTextField.text = @"";
     _bodyTextView.text = @"";
+    _imageView.image = nil;
     
     // Get the current timestamp
     [self updateCurrentTimestamp];

@@ -31,13 +31,13 @@
 #pragma mark - Misc
 + (NSString *)formatDate:(NSDate *)date {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"MMMM dd, yyyy HH:mm a";
+    dateFormatter.dateFormat = @"MMMM dd, yyyy hh:mm a";
     return [dateFormatter stringFromDate:date];
 }
 
 + (NSString *)formatDateForTableView:(NSDate *)date {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"MM-dd-yy HH:mm a";
+    dateFormatter.dateFormat = @"MM-dd-yy hh:mm a";
     return [dateFormatter stringFromDate:date];
 }
 
