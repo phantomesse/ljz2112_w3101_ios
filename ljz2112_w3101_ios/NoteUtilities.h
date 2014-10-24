@@ -12,6 +12,7 @@
 
 + (NSString *)getDocumentsDirectoryPath;
 + (NSString *)getNoteFilePath:(NSString *)noteId;
++ (BOOL)deleteNoteFromFileSystem:(NSString *)noteId;
 + (void)logFileSystem;
 
 + (NSString *)formatDate:(NSDate *)date;

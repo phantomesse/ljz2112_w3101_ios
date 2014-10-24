@@ -50,6 +50,9 @@
     
     // Retrieve the NotesIndex object
     _notesIndex = [NotesIndex retrieveNotesIndexFromFileSystem];
+    
+    
+    [NoteUtilities logFileSystem];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,7 +63,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     AllNotesViewController *allNotesViewController = segue.destinationViewController;
     allNotesViewController.delegate = self;
-    allNotesViewController.openNoteId = _note.noteId;
     allNotesViewController.noteTitles = [_notesIndex getArrayForAllNotesTableView];
     allNotesViewController.noteIds = [_notesIndex getIdArrayForAllNotesTableView];
 }
@@ -75,6 +77,14 @@
     
     // Disable the Save button because we just saved
     [_saveButton setEnabled:NO];
+}
+
+- (IBAction)deleteButtonClicked:(UIButton *)sender {
+    [self deleteNote];
+}
+
+- (IBAction)newButtonClicked:(UIButton *)sender {
+    [self newNote];
 }
 
 - (IBAction)titleTextFieldEditingChanged:(UITextField *)sender {
@@ -125,13 +135,15 @@
 
 - (void)loadNote:(NSString *)noteId {
     // Check if the current note is the note to load
-    if (_note != nil && [_note.noteId isEqualToString:noteId]) {
+    if ([_note.noteId isEqualToString:noteId]) {
         // Don't need to load anything because it's already loaded
         return;
     }
     
+    NSLog(@"Note id: %@", noteId);
     // Find and load the note from the file system
     NSString *noteFilePath = [NoteUtilities getNoteFilePath:noteId];
+    NSLog(@"File Path: %@", noteFilePath);
     NSData *data = [NSData dataWithContentsOfFile:noteFilePath];
     _note = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     
@@ -139,6 +151,34 @@
     _titleTextField.text = _note.title;
     _timestampLabel.text = [NoteUtilities formatDate:_note.timestamp];
     _bodyTextView.text = _note.body;
+}
+
+- (void)deleteNote {
+    // Don't delete an empty note
+    if (_note == nil) {
+        return;
+    }
+    
+    // Delete the note from the file system
+    [NoteUtilities deleteNoteFromFileSystem:_note.noteId];
+    
+    // Remove the note from the NotesIndex
+    [_notesIndex removeNote:_note.noteId];
+    
+    // Create a new note
+    [self newNote];
+}
+
+- (void)newNote {
+    // Reset the note
+    _note = nil;
+    
+    // Clear all the fields
+    _titleTextField.text = @"";
+    _bodyTextView.text = @"";
+    
+    // Get the current timestamp
+    [self updateCurrentTimestamp];
 }
 
 @end

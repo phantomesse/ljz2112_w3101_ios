@@ -23,15 +23,19 @@ static NSString *const notesIndexFileName = @"notesIndex";
 
 @implementation NotesIndex
 
+- (id)init {
+    self = [super init];
+    
+    _noteIds = [[NSMutableArray alloc] init];
+    _noteTitles = [[NSMutableArray alloc] init];
+    _noteTimestamps = [[NSMutableArray alloc] init];
+    _noteIdToIndexDictionary = [[NSMutableDictionary alloc] init];
+    
+    return self;
+}
+
 #pragma mark - Notes
 - (void)addNote:(Note *)note {
-    if (_noteIds == nil || _noteTitles == nil || _noteTimestamps == nil || _noteIdToIndexDictionary == nil) {
-        _noteIds = [[NSMutableArray alloc] init];
-        _noteTitles = [[NSMutableArray alloc] init];
-        _noteTimestamps = [[NSMutableArray alloc] init];
-        _noteIdToIndexDictionary = [[NSMutableDictionary alloc] init];
-    }
-    
     // Check if the id exists in the dictionary
     NSNumber *index = [_noteIdToIndexDictionary objectForKey:note.noteId];
     if (index == nil) {
@@ -39,13 +43,30 @@ static NSString *const notesIndexFileName = @"notesIndex";
         [_noteIds addObject:note.noteId];
         [_noteTitles addObject:note.title];
         [_noteTimestamps addObject:note.timestamp];
-        [_noteIdToIndexDictionary setObject:[NSNumber numberWithInteger:_noteIds.count] forKey:note.noteId];
+        [_noteIdToIndexDictionary setObject:[NSNumber numberWithInteger:(_noteIds.count - 1)] forKey:note.noteId];
     } else {
         // Does exist, so update existing entry
         _noteIds[index.integerValue] = note.noteId;
         _noteTitles[index.integerValue] = note.title;
         _noteTimestamps[index.integerValue] = note.timestamp;
     }
+    
+    [self updateNotesIndexInFileSystem];
+}
+
+- (void)removeNote:(NSString *)noteId {
+    NSNumber *index = [_noteIdToIndexDictionary objectForKey:noteId];
+    [_noteIds removeObjectAtIndex:index.integerValue];
+    [_noteTitles removeObjectAtIndex:index.integerValue];
+    [_noteTimestamps removeObjectAtIndex:index.integerValue];
+    [_noteIdToIndexDictionary removeObjectForKey:noteId];
+    
+    // Shift all the indices in the dictionary
+    [_noteIdToIndexDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *value, BOOL *stop) {
+        if (value.intValue > index.intValue) {
+            [_noteIdToIndexDictionary setObject:[NSNumber numberWithInteger:(value.intValue - 1)] forKey:key];
+        }
+    }];
     
     [self updateNotesIndexInFileSystem];
 }
@@ -102,7 +123,7 @@ static NSString *const notesIndexFileName = @"notesIndex";
     
     // Return an empty NotesIndex if the file doesn't exist
     if (!notesIndexFileExist) {
-        return [NotesIndex alloc];
+        return [[NotesIndex alloc] init];
     }
     
     // Return the NotesIndex from the file system

@@ -43,6 +43,9 @@
                                             <state key="normal" title="New Note">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="newButtonClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="H9h-2r-fUV"/>
+                                            </connections>
                                         </button>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="em7-Bd-Uv6">
@@ -70,6 +73,9 @@
                                             <state key="normal" title="Delete">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="deleteButtonClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="SaK-Gw-1nv"/>
+                                            </connections>
                                         </button>
                                     </barButtonItem>
                                 </items>

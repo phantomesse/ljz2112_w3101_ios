@@ -20,6 +20,14 @@
     return [documentsDirectoryPath stringByAppendingPathComponent:noteId];
 }
 
++ (BOOL)deleteNoteFromFileSystem:(NSString *)noteId {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *filePath = [self getNoteFilePath:noteId];
+    NSError *error;
+    BOOL success = [fileManager removeItemAtPath:filePath error:&error];
+    return success;
+}
+
 + (void)logFileSystem {
     NSString *documentsDirectoryPath = [self getDocumentsDirectoryPath];
     NSURL *documentsURL = [NSURL URLWithString:documentsDirectoryPath];

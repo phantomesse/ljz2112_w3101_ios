@@ -25,15 +25,6 @@ static NSString *const tableViewCellReuseIdentifier = @"kTableViewCellReuseIdent
     [super viewDidLoad];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
-        [self.delegate loadNote:_openNoteId];
-        [self.navigationController popViewControllerAnimated:NO];
-    }
-    
-    [super viewWillDisappear:animated];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -60,6 +51,8 @@ static NSString *const tableViewCellReuseIdentifier = @"kTableViewCellReuseIdent
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *noteId = _noteIds[indexPath.item];
+    NSLog(@"Index is %lu", indexPath.item);
+    NSLog(@"We think is %@", _noteIds[indexPath.item]);
     [self.delegate loadNote:noteId];
     [self.navigationController popToRootViewControllerAnimated:TRUE];
 }

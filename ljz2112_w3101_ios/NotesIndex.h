@@ -12,6 +12,7 @@
 @interface NotesIndex : NSObject
 
 - (void)addNote:(Note *)note;
+- (void)removeNote:(NSString *)noteId;
 - (NSMutableArray *)getArrayForAllNotesTableView;
 - (NSMutableArray *)getIdArrayForAllNotesTableView;
 
