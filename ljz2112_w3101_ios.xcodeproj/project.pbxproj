@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB113B0219FA5F1700238736 /* NotesIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = AB113B0119FA5F1700238736 /* NotesIndex.m */; };
 		AB754ABD19FA34E000419FCF /* AllNotesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB754ABC19FA34E000419FCF /* AllNotesViewController.m */; };
 		AB754AC319FA514500419FCF /* NoteUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = AB754AC219FA514500419FCF /* NoteUtilities.m */; };
 		AB7A7F1219FA2ABC00CCA407 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7A7F1119FA2ABC00CCA407 /* Note.m */; };
@@ -30,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB113B0019FA5F1700238736 /* NotesIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesIndex.h; sourceTree = "<group>"; };
+		AB113B0119FA5F1700238736 /* NotesIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesIndex.m; sourceTree = "<group>"; };
 		AB754ABB19FA34E000419FCF /* AllNotesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllNotesViewController.h; sourceTree = "<group>"; };
 		AB754ABC19FA34E000419FCF /* AllNotesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllNotesViewController.m; sourceTree = "<group>"; };
 		AB754AC119FA514500419FCF /* NoteUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteUtilities.h; sourceTree = "<group>"; };
@@ -104,6 +107,8 @@
 				AB853FA319E462110015E76A /* Supporting Files */,
 				AB7A7F1019FA2ABC00CCA407 /* Note.h */,
 				AB7A7F1119FA2ABC00CCA407 /* Note.m */,
+				AB113B0019FA5F1700238736 /* NotesIndex.h */,
+				AB113B0119FA5F1700238736 /* NotesIndex.m */,
 			);
 			path = ljz2112_w3101_ios;
 			sourceTree = "<group>";
@@ -234,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB113B0219FA5F1700238736 /* NotesIndex.m in Sources */,
 				AB853FAC19E462110015E76A /* NoteViewController.m in Sources */,
 				AB853FA919E462110015E76A /* AppDelegate.m in Sources */,
 				AB754AC319FA514500419FCF /* NoteUtilities.m in Sources */,

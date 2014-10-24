@@ -9,9 +9,10 @@
 #import "NoteViewController.h"
 #import "AllNotesViewController.h"
 #import "Note.h"
+#import "NotesIndex.h"
 #import "NoteUtilities.h"
 
-@interface NoteViewController () <UITextViewDelegate>
+@interface NoteViewController () <UITextViewDelegate, AllNotesViewDelegate>
 
 #pragma mark - View Controller Fields
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
@@ -20,8 +21,9 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 
 #pragma mark - Note Fields
-@property (strong, nonatomic) Note* note;
-@property (strong, nonatomic) NSDate* noteTimestamp;
+@property (strong, nonatomic) Note *note;
+@property (strong, nonatomic) NSDate *noteTimestamp;
+@property (strong, nonatomic) NotesIndex *notesIndex;
 
 @end
 
@@ -45,6 +47,9 @@
     
     // Disable the Save button because there's nothing to save
     [_saveButton setEnabled:NO];
+    
+    // Retrieve the NotesIndex object
+    _notesIndex = [NotesIndex retrieveNotesIndexFromFileSystem];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,13 +57,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    AllNotesViewController *allNotesViewController = segue.destinationViewController;
+    allNotesViewController.delegate = self;
+    allNotesViewController.openNoteId = _note.noteId;
+    allNotesViewController.noteTitles = [_notesIndex getArrayForAllNotesTableView];
+    allNotesViewController.noteIds = [_notesIndex getIdArrayForAllNotesTableView];
+}
 
 #pragma mark - View Controller Listener
 - (IBAction)saveButtonClicked:(UIBarButtonItem *)sender {
     // Set the current timestamp
     [self updateCurrentTimestamp];
     
-    // TODO: Save the contents of the note
+    // Save the contents of the note
+    [self saveNote];
     
     // Disable the Save button because we just saved
     [_saveButton setEnabled:NO];
@@ -101,6 +114,9 @@
     _note.title = _titleTextField.text;
     _note.timestamp = _noteTimestamp;
     _note.body = _bodyTextView.text;
+    
+    // Update the Notes Index
+    [_notesIndex addNote:_note];
     
     // Save the note to the file system
     NSString *noteFilePath = [NoteUtilities getNoteFilePath:_note.noteId];

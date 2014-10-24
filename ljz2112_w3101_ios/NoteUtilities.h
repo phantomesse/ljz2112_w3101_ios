@@ -12,7 +12,9 @@
 
 + (NSString *)getDocumentsDirectoryPath;
 + (NSString *)getNoteFilePath:(NSString *)noteId;
++ (void)logFileSystem;
 
 + (NSString *)formatDate:(NSDate *)date;
++ (NSString *)formatDateForTableView:(NSDate *)date;
 
 @end

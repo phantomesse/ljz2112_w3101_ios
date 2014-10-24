@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol AllNotesViewDelegate
+
+- (void)loadNote:(NSString *)noteId;
+
+@end
+
+
 @interface AllNotesViewController : UITableViewController
+
+@property (nonatomic) id<AllNotesViewDelegate> delegate;
+
+@property (nonatomic) NSString *openNoteId; // The currently open note
+@property (nonatomic) NSMutableArray *noteTitles;
+@property (nonatomic) NSMutableArray *noteIds; // Matches the indices of noteTitles
 
 @end
