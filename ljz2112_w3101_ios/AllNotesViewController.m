@@ -51,8 +51,6 @@ static NSString *const tableViewCellReuseIdentifier = @"kTableViewCellReuseIdent
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *noteId = _noteIds[indexPath.item];
-    NSLog(@"Index is %lu", indexPath.item);
-    NSLog(@"We think is %@", _noteIds[indexPath.item]);
     [self.delegate loadNote:noteId];
     [self.navigationController popToRootViewControllerAnimated:TRUE];
 }

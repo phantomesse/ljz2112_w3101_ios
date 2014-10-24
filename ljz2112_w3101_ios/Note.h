@@ -14,5 +14,6 @@
 @property (nonatomic) NSString *title;
 @property (nonatomic) NSDate *timestamp;
 @property (nonatomic) NSString *body;
+@property (nonatomic) NSData *photo;
 
 @end

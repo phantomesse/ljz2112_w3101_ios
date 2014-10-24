@@ -28,20 +28,6 @@
     return success;
 }
 
-+ (void)logFileSystem {
-    NSString *documentsDirectoryPath = [self getDocumentsDirectoryPath];
-    NSURL *documentsURL = [NSURL URLWithString:documentsDirectoryPath];
-    NSError *error;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *documentsDirectoryContents = [fileManager contentsOfDirectoryAtURL:documentsURL
-                                               includingPropertiesForKeys:nil
-                                                                  options:0
-                                                                    error:&error]; 
-    for (NSURL *url in documentsDirectoryContents) {
-        NSLog(@"%@ is in the documents directory", url);
-    }
-}
-
 #pragma mark - Misc
 + (NSString *)formatDate:(NSDate *)date {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
@@ -53,6 +39,21 @@
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"MM-dd-yy HH:mm a";
     return [dateFormatter stringFromDate:date];
+}
+
+#pragma mark - Debugging
++ (void)logFileSystem {
+    NSString *documentsDirectoryPath = [self getDocumentsDirectoryPath];
+    NSURL *documentsURL = [NSURL URLWithString:documentsDirectoryPath];
+    NSError *error;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *documentsDirectoryContents = [fileManager contentsOfDirectoryAtURL:documentsURL
+                                                     includingPropertiesForKeys:nil
+                                                                        options:0
+                                                                          error:&error];
+    for (NSURL *url in documentsDirectoryContents) {
+        NSLog(@"%@ is in the documents directory", url);
+    }
 }
 
 @end

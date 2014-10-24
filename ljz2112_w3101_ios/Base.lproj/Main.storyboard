@@ -35,6 +35,9 @@
                             </label>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SrX-le-R6D">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Z1a-8Q-GOI"/>
+                                </constraints>
                                 <items>
                                     <barButtonItem style="plain" id="x9T-ml-mhX">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ko9-M7-6P3">
@@ -55,6 +58,9 @@
                                             <state key="normal" title="Attach Image">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="attachImageButtonClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ery-qg-TAX"/>
+                                            </connections>
                                         </button>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="FHj-GR-mQJ">
@@ -80,18 +86,26 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g64-5E-shY">
-                                <rect key="frame" x="16" y="428" width="568" height="120"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="LQ2-MQ-9YL"/>
-                                </constraints>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yuo-4N-Ra9">
-                                <rect key="frame" x="16" y="137" width="568" height="283"/>
+                                <rect key="frame" x="16" y="137" width="568" height="271"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oHl-Fk-RCw">
+                                <rect key="frame" x="0.0" y="416" width="600" height="140"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g64-5E-shY">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="140"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="Iq4-43-gjw"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="Ot4-gX-xPR"/>
+                                </connections>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -99,19 +113,20 @@
                             <constraint firstItem="SrX-le-R6D" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="2LW-X6-da9"/>
                             <constraint firstAttribute="trailing" secondItem="AAr-xQ-TEp" secondAttribute="trailing" constant="16" id="5WR-1M-Bw3"/>
                             <constraint firstItem="Yuo-4N-Ra9" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="7fL-cc-dFe"/>
+                            <constraint firstItem="SrX-le-R6D" firstAttribute="top" secondItem="oHl-Fk-RCw" secondAttribute="bottom" id="BNO-uJ-Uet"/>
                             <constraint firstAttribute="trailing" secondItem="Yuo-4N-Ra9" secondAttribute="trailing" constant="16" id="Ch7-Vw-lMP"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="SrX-le-R6D" secondAttribute="bottom" id="Dxc-dZ-OgA"/>
                             <constraint firstItem="Yuo-4N-Ra9" firstAttribute="top" secondItem="Kb9-sy-W3z" secondAttribute="bottom" constant="8" id="GPv-eF-4wD"/>
-                            <constraint firstItem="g64-5E-shY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="YD2-Dv-iEr"/>
+                            <constraint firstAttribute="trailing" secondItem="oHl-Fk-RCw" secondAttribute="trailing" id="QV1-XP-mjZ"/>
                             <constraint firstItem="Kb9-sy-W3z" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="Z9l-mQ-yLq"/>
-                            <constraint firstItem="SrX-le-R6D" firstAttribute="top" secondItem="g64-5E-shY" secondAttribute="bottom" constant="8" id="gUD-3I-lDH"/>
+                            <constraint firstItem="oHl-Fk-RCw" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="cNT-BG-CNr"/>
+                            <constraint firstItem="oHl-Fk-RCw" firstAttribute="top" secondItem="Yuo-4N-Ra9" secondAttribute="bottom" constant="8" id="fvv-o6-xjg"/>
                             <constraint firstItem="AAr-xQ-TEp" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="16" id="k4r-jX-dvL"/>
                             <constraint firstItem="Kb9-sy-W3z" firstAttribute="top" secondItem="AAr-xQ-TEp" secondAttribute="bottom" constant="4" id="kJU-eS-OUh"/>
                             <constraint firstAttribute="trailing" secondItem="SrX-le-R6D" secondAttribute="trailing" id="lwB-UM-8TM"/>
-                            <constraint firstItem="g64-5E-shY" firstAttribute="top" secondItem="Yuo-4N-Ra9" secondAttribute="bottom" constant="8" id="mkH-ln-503"/>
+                            <constraint firstItem="oHl-Fk-RCw" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="muQ-ZS-wDn"/>
                             <constraint firstAttribute="trailing" secondItem="Kb9-sy-W3z" secondAttribute="trailing" constant="16" id="nnK-e3-z37"/>
                             <constraint firstItem="AAr-xQ-TEp" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="qfI-BL-XaC"/>
-                            <constraint firstAttribute="trailing" secondItem="g64-5E-shY" secondAttribute="trailing" constant="16" id="wr3-eH-qvN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="EXT-Tp-cWB">
@@ -128,6 +143,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bodyTextView" destination="Yuo-4N-Ra9" id="4SP-sJ-XRz"/>
+                        <outlet property="imageView" destination="g64-5E-shY" id="X89-2y-W4G"/>
                         <outlet property="saveButton" destination="RtE-Af-GJM" id="RtG-FB-Nzh"/>
                         <outlet property="timestampLabel" destination="Kb9-sy-W3z" id="Zb4-IB-B29"/>
                         <outlet property="titleTextField" destination="AAr-xQ-TEp" id="3O3-oL-C8h"/>

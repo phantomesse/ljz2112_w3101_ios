@@ -15,6 +15,7 @@
     [coder encodeObject:self.title forKey:@"title"];
     [coder encodeObject:self.timestamp forKey:@"timestamp"];
     [coder encodeObject:self.body forKey:@"body"];
+    [coder encodeObject:self.photo forKey:@"photo"];
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
@@ -23,6 +24,7 @@
         self.title = [coder decodeObjectForKey:@"title"];
         self.timestamp = [coder decodeObjectForKey:@"timestamp"];
         self.body = [coder decodeObjectForKey:@"body"];
+        self.photo = [coder decodeObjectForKey:@"photo"];
     }
     return self;
 }

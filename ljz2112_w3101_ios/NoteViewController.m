@@ -12,18 +12,21 @@
 #import "NotesIndex.h"
 #import "NoteUtilities.h"
 
-@interface NoteViewController () <UITextViewDelegate, AllNotesViewDelegate>
+@interface NoteViewController () <UITextViewDelegate, AllNotesViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 #pragma mark - View Controller Fields
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UILabel *timestampLabel;
 @property (weak, nonatomic) IBOutlet UITextView *bodyTextView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
+@property (nonatomic) UIImagePickerController *imagePicker;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 #pragma mark - Note Fields
 @property (strong, nonatomic) Note *note;
 @property (strong, nonatomic) NSDate *noteTimestamp;
 @property (strong, nonatomic) NotesIndex *notesIndex;
+@property (strong, nonatomic) NSData *notesPhoto;
 
 @end
 
@@ -52,7 +55,22 @@
     _notesIndex = [NotesIndex retrieveNotesIndexFromFileSystem];
     
     
-    [NoteUtilities logFileSystem];
+    // Set up image picker
+    _imagePicker = [[UIImagePickerController alloc] init];
+    _imagePicker.delegate = self;
+    
+    // For debugging
+    //[NoteUtilities logFileSystem];
+    //[self loadImagesIntoPhotosAlbum];
+}
+
+- (void)loadImagesIntoPhotosAlbum {
+    // For debugging purposes only
+    NSArray *images = [NSArray arrayWithObjects:@"Crab",@"CandyApple",@"Waffle",@"IceCream",@"HotDog",nil];
+    [images enumerateObjectsUsingBlock:^(NSString *imageName, NSUInteger index, BOOL *stop) {
+        UIImage *image = [UIImage imageNamed:imageName];
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,12 +105,23 @@
     [self newNote];
 }
 
+- (IBAction)attachImageButtonClicked:(UIButton *)sender {
+    [self presentViewController:_imagePicker animated:YES completion:nil];
+}
+
 - (IBAction)titleTextFieldEditingChanged:(UITextField *)sender {
     [_saveButton setEnabled:YES];
 }
 
 - (void) textViewDidChange:(UITextView *)textView {
     [_saveButton setEnabled:YES];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    _notesPhoto = UIImagePNGRepresentation(image);
+    _imageView.image = image;
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - Note Methods
@@ -124,6 +153,7 @@
     _note.title = _titleTextField.text;
     _note.timestamp = _noteTimestamp;
     _note.body = _bodyTextView.text;
+    _note.photo = _notesPhoto;
     
     // Update the Notes Index
     [_notesIndex addNote:_note];
@@ -140,10 +170,8 @@
         return;
     }
     
-    NSLog(@"Note id: %@", noteId);
     // Find and load the note from the file system
     NSString *noteFilePath = [NoteUtilities getNoteFilePath:noteId];
-    NSLog(@"File Path: %@", noteFilePath);
     NSData *data = [NSData dataWithContentsOfFile:noteFilePath];
     _note = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     
@@ -151,6 +179,9 @@
     _titleTextField.text = _note.title;
     _timestampLabel.text = [NoteUtilities formatDate:_note.timestamp];
     _bodyTextView.text = _note.body;
+    _notesPhoto = _note.photo;
+    UIImage *image = [UIImage imageWithData:_notesPhoto];
+    _imageView.image = image;
 }
 
 - (void)deleteNote {
