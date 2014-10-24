@@ -147,6 +147,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="ImageScrollView" destination="oHl-Fk-RCw" id="S40-u7-LFn"/>
                         <outlet property="bodyTextView" destination="Yuo-4N-Ra9" id="4SP-sJ-XRz"/>
                         <outlet property="imageView" destination="g64-5E-shY" id="X89-2y-W4G"/>
                         <outlet property="saveButton" destination="RtE-Af-GJM" id="RtG-FB-Nzh"/>
@@ -195,5 +196,5 @@
             <point key="canvasLocation" x="355" y="634"/>
         </scene>
     </scenes>
-    <color key="tintColor" red="0.9137254901960784" green="0.11764705882352941" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="0.9137254901960784" green="0.11764705882352941" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

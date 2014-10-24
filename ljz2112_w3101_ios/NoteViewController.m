@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *bodyTextView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (nonatomic) UIImagePickerController *imagePicker;
+@property (weak, nonatomic) IBOutlet UIScrollView *ImageScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (nonatomic) MFMailComposeViewController *emailController;
 
@@ -60,8 +61,9 @@
     _imagePicker = [[UIImagePickerController alloc] init];
     _imagePicker.delegate = self;
     
-    // Set up the image view
+    // Set up the image view and scroll view
     _imageView.contentMode = UIViewContentModeScaleAspectFill;
+    
     
     // Set up the email controller
     _emailController = [[MFMailComposeViewController alloc] init];
