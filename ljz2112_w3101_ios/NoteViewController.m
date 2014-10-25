@@ -21,9 +21,9 @@
 @property (weak, nonatomic) IBOutlet UITextView *bodyTextView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (nonatomic) UIImagePickerController *imagePicker;
-@property (weak, nonatomic) IBOutlet UIScrollView *ImageScrollView;
+@property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (nonatomic) MFMailComposeViewController *emailController;
+@property (strong, nonatomic) MFMailComposeViewController *emailController;
 
 #pragma mark - Note Fields
 @property (strong, nonatomic) Note *note;
@@ -64,10 +64,8 @@
     // Set up the image view and scroll view
     _imageView.contentMode = UIViewContentModeScaleAspectFill;
     
-    
     // Set up the email controller
-    _emailController = [[MFMailComposeViewController alloc] init];
-    _emailController.mailComposeDelegate = self;
+    [self cycleEmailComposer];
     
     // For debugging
     //[NoteUtilities logFileSystem];
@@ -95,6 +93,11 @@
     allNotesViewController.noteIds = [_notesIndex getIdArrayForAllNotesTableView];
 }
 
+- (void)cycleEmailComposer {
+    _emailController = nil;
+    _emailController = [[MFMailComposeViewController alloc] init];
+}
+
 #pragma mark - View Controller Listener
 - (IBAction)saveButtonClicked:(UIBarButtonItem *)sender {
     // Set the current timestamp
@@ -120,7 +123,7 @@
 }
 
 - (IBAction)emailButtonClicked:(UIButton *)sender {
-    [self showEmail:@"Hi"];
+    [self showEmail:@""];
 }
 
 - (IBAction)titleTextFieldEditingChanged:(UITextField *)sender {
@@ -135,22 +138,32 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     _notesPhoto = UIImagePNGRepresentation(image);
     _imageView.image = image;
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    
+    [_saveButton setEnabled:YES];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 - (void)showEmail:(NSString*)file {
-    // Set the title and body
-    [_emailController setSubject:_note.title];
-    [_emailController setMessageBody:_note.body isHTML:NO];
+    if ([MFMailComposeViewController canSendMail]) {
+        _emailController.mailComposeDelegate = self;
+        [self presentViewController:_emailController animated:YES completion:nil];
         
-    // Add image if it exists
-    if (_notesPhoto != nil) {
-        // Add image
-        [_emailController addAttachmentData:_notesPhoto mimeType:@"image/png" fileName:@"Image.png"];
+        [_emailController setSubject:_titleTextField.text];
+        [_emailController setMessageBody:_bodyTextView.text isHTML:NO];
+        
+        // Add image if it exists
+        if (_notesPhoto != nil) {
+            // Add image
+            [_emailController addAttachmentData:_notesPhoto mimeType:@"image/png" fileName:@"Image.png"];
+        }
     }
-        
-    // Present mail view controller on screen
-    [self presentViewController:_emailController animated:YES completion:NULL];
+    else {
+        NSLog(@"Unable to send mail");
+        [self cycleEmailComposer];
+    }
+
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
@@ -172,7 +185,7 @@
     }
     
     // Close the Mail Interface
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Note Methods

@@ -149,6 +149,7 @@
                     <connections>
                         <outlet property="ImageScrollView" destination="oHl-Fk-RCw" id="S40-u7-LFn"/>
                         <outlet property="bodyTextView" destination="Yuo-4N-Ra9" id="4SP-sJ-XRz"/>
+                        <outlet property="imageScrollView" destination="oHl-Fk-RCw" id="gKs-n5-NTf"/>
                         <outlet property="imageView" destination="g64-5E-shY" id="X89-2y-W4G"/>
                         <outlet property="saveButton" destination="RtE-Af-GJM" id="RtG-FB-Nzh"/>
                         <outlet property="timestampLabel" destination="Kb9-sy-W3z" id="Zb4-IB-B29"/>
